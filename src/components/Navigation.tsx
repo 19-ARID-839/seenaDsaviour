@@ -64,16 +64,17 @@ const Navigation = () => {
           <div className="flex items-center space-x-2">
             {/* <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
               <Brain className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-bold text-electric-purple">SeenaDsaviour</span>
-              <span className="text-xs text-muted-foreground -mt-1">AI-Powered Education</span>
-            </div> */}
+            </div>*/}
             <img
               src="/logo.png"
               alt="SeenaDsaviour Logo"
-              className="w-10 h-10 rounded-full"
+              className="w-12 h-12 rounded-full"
             />
+            <div className="flex flex-col">
+              <span className="text-lg font-bold text-electric-purple">SeenaDsaviour</span>
+              <span className="text-xs text-muted-foreground -mt-1">Smart Education System</span>
+            </div> 
+            
           </div>
 
           {/* Desktop Navigation */}
