@@ -27,7 +27,8 @@ const Footer = () => {
         { label: "Help Center", href: "/help" },
         { label: "Documentation", href: "/docs" },
         { label: "API Reference", href: "/api" },
-        { label: "Contact Us", href: "/contact" }
+        { label: "Contact Us", href: "/contact" },
+        { label: "FAQ", href: "/faq" }
       ]
     },
     {
@@ -111,6 +112,7 @@ const Footer = () => {
         {/* Newsletter Section */}
         <div className="py-8 border-t border-border">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            
             <div>
               <h4 className="text-xl font-bold text-foreground mb-2">Stay Updated</h4>
               <p className="text-muted-foreground">
@@ -127,19 +129,7 @@ const Footer = () => {
                 <span>Subscribe</span>
               </Button>
             </div>
-          </div>
-        </div>
-
-        {/* Bottom Footer */}
-        <div className="py-6 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-sm text-muted-foreground">
-              © 2024 SeenaDsaviour. All rights reserved. | 
-              <a href="/privacy" className="hover:text-electric-purple ml-1">Privacy Policy</a> | 
-              <a href="/terms" className="hover:text-electric-purple ml-1">Terms of Service</a>
-            </div>
-
-            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-4 " >
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -151,6 +141,26 @@ const Footer = () => {
                 </a>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Bottom Footer */}
+        <div className="py-6 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+            <div className="text-sm text-muted-foreground text-center">
+              <div>
+                 <a href="/privacy" className="hover:text-electric-purple m1-1">Privacy Policy</a> | 
+              <a href="/terms" className="hover:text-electric-purple ml-1">Terms of Service</a> |
+              <a href="/sdssecuritydisclosure" className="hover:text-electric-purple ml-1">SeenaDSaviour Security Disclosure Program</a> |
+              <a href="/cookies"> Cookies prefrences</a>
+              </div>
+            
+              <br />
+              © 2024 SeenaDsaviour. All rights reserved.  
+             
+            </div>
+
+           
           </div>
         </div>
       </div>

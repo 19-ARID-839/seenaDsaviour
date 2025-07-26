@@ -39,9 +39,9 @@ const WhyChooseUs = () => {
     },
     {
       icon: Shield,
-      title: "Enterprise Security",
-      description: "Bank-level security with end-to-end encryption, GDPR compliance, and role-based access control to keep your data safe and secure.",
-      features: ["256-bit Encryption", "GDPR Compliant", "Access Control"],
+      title: "Education-Grade Security",
+      description: "Ensure peace of mind for schools, parents, and students with robust, education-specific data protection. Our system safeguards academic records, attendance logs, communication data, and AI-generated insights — all while meeting global compliance standards.Role-Based Secure Access Auto Data Backup & Recovery",
+      features: ["", "", ""],
       color: "electric-purple"
     },
     {
@@ -111,14 +111,14 @@ const WhyChooseUs = () => {
               <p className="text-muted-foreground mb-4 leading-relaxed">{reason.description}</p>
 
               {/* Features */}
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 {reason.features.map((feature, featureIndex) => (
                   <div key={featureIndex} className="flex items-center space-x-2">
                     <div className={`w-1.5 h-1.5 bg-${reason.color} rounded-full`}></div>
                     <span className="text-sm text-muted-foreground">{feature}</span>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

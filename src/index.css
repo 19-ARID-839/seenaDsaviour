@@ -194,6 +194,15 @@ html {
     animation: slide-up 0.6s ease-out;
   }
 
+  .hover-colorchange:hover {
+    
+    /* gradint tect color */
+    background: linear-gradient(90deg, #30A1FB, #FF0080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.4s ease-in-out;
+  }
+
   /* Interactive hover effects */
   .hover-lift {
     transition: var(--transition-smooth);

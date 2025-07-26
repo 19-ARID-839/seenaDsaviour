@@ -15,10 +15,15 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate, useLocation } from "react-router-dom";
+import DropdownMenu from "@/components/ui/Dropdown";
+// import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [hovered, setHovered] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(null);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,25 +40,34 @@ const Navigation = () => {
   };
 
   const handleSevenPsClick = () => {
-  if (location.pathname !== "/") {
-    navigate("/#seven-ps");
-  } else {
-    const section = document.getElementById("seven-ps");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+    if (location.pathname !== "/") {
+      navigate("/#seven-ps");
+    } else {
+      const section = document.getElementById("seven-ps");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
     }
-  }
-  setIsMenuOpen(false);
-};
-
+    setIsMenuOpen(false);
+  };
 
   const menuItems = [
     { label: "Home", href: "/", icon: null },
     { label: "7 Ps", onClick: handleSevenPsClick, icon: GraduationCap },
     { label: "Community", href: "/community", icon: Users },
-    { label: "AI Advantage", onClick: handleAiClick, icon: BarChart3 }, 
+    { label: "AI Advantage", onClick: handleAiClick, icon: BarChart3 },
     { label: "Pricing", href: "/pricing", icon: BookOpen },
     { label: "Contact", href: "/contact", icon: Phone },
+    {
+      label: "About Us",
+      href: "/about",
+      icon: null,
+      dropdown: [
+        { label: "Our Team", onClick: handleAiClick, icon: Users },
+        { label: "Our Mission", onClick: handleAiClick, icon: Brain },
+        { label: "Careers", href: "/careers", icon: GraduationCap },
+      ],
+    },
   ];
 
   return (
@@ -71,29 +85,59 @@ const Navigation = () => {
               className="w-12 h-12 rounded-full"
             />
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-electric-purple">SeenaDsaviour</span>
-              <span className="text-xs text-muted-foreground -mt-1">Smart Education System</span>
-            </div> 
-            
+              <span className="text-lg font-bold text-electric-purple hover-colorchange">
+                SeenaDsaviour
+              </span>
+              <span className="text-xs text-foreground -mt-1">
+                Smart Education System
+              </span>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {/* {menuItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-foreground hover:text-electric-purple transition-colors duration-200 font-medium"
-              >
-                {item.label}
-              </a>
-            ))} */}
+          {/* <div className="hidden lg:flex items-center space-x-8">
             {menuItems.map((item) =>
-              item.onClick ? (
+              item.dropdown ? (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => setHovered(item.label)}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <button className="text-foreground hover:text-electric-purple font-medium">
+                    {item.label}
+                  </button>
+                  {hovered === item.label && (
+                    <div className="absolute left-0 mt-2 bg-background border border-border rounded-lg shadow-lg z-50 min-w-[200px]">
+                      {item.dropdown.map((subItem) =>
+                        subItem.onClick ? (
+                          <button
+                            key={subItem.label}
+                            onClick={subItem.onClick}
+                            className="w-full text-left flex items-center px-4 py-2 hover:bg-muted gap-2"
+                          >
+                            <subItem.icon className="w-4 h-4 text-electric-purple" />
+                            {subItem.label}
+                          </button>
+                        ) : (
+                          <a
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="flex items-center px-4 py-2 hover:bg-muted gap-2"
+                          >
+                            <subItem.icon className="w-4 h-4 text-electric-purple" />
+                            {subItem.label}
+                          </a>
+                        )
+                      )}
+                    </div>
+                  )}
+                </div>
+              ) : item.onClick ? (
                 <button
                   key={item.label}
                   onClick={item.onClick}
-                  className="text-foreground hover:text-electric-purple transition-colors duration-200 font-medium"
+                  className="text-foreground hover:text-electric-purple font-medium"
                 >
                   {item.label}
                 </button>
@@ -101,27 +145,41 @@ const Navigation = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-foreground hover:text-electric-purple transition-colors duration-200 font-medium"
+                  className="text-foreground hover:text-electric-purple font-medium"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
+          </div> */}
+
+          <div className="hidden lg:flex items-center space-x-8">
+            {menuItems.map((item) =>
+              item.dropdown ? (
+                <DropdownMenu
+                  key={item.label}
+                  label={item.label}
+                  items={item.dropdown}
+                />
+              ) : item.onClick ? (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="text-foreground hover:text-electric-purple font-medium"
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-foreground hover:text-electric-purple font-medium"
                 >
                   {item.label}
                 </a>
               )
             )}
           </div>
-
-          {/* Search Bar */}
-          {/* <div className="hidden md:flex items-center">
-            <div className={`relative transition-all duration-300 ${isSearchFocused ? 'w-64' : 'w-48'}`}>
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Smart search..."
-                className="w-full pl-10 pr-4 py-2 bg-card border border-border rounded-lg focus:ring-2 focus:ring-electric-purple focus:border-transparent outline-none transition-all duration-200"
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-              />
-            </div>
-          </div> */}
 
           {/* Action Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
@@ -151,29 +209,7 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border animate-slide-up">
             <div className="flex flex-col space-y-4">
-              {/* Mobile Search */}
-              {/* <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Smart search..."
-                  className="w-full pl-10 pr-4 py-2 bg-card border border-border rounded-lg focus:ring-2 focus:ring-electric-purple focus:border-transparent outline-none"
-                />
-              </div> */}
-
-              {/* Mobile Navigation Links */}
-              {/* {menuItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
-                >
-                  {item.icon && <item.icon className="w-5 h-5 text-electric-purple" />}
-                  <span className="font-medium">{item.label}</span>
-                </a>
-              ))} */}
-
-              {menuItems.map((item) =>
+              {/* {menuItems.map((item) =>
                 item.onClick ? (
                   <button
                     key={item.label}
@@ -190,6 +226,84 @@ const Navigation = () => {
                     key={item.label}
                     href={item.href}
                     className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                  >
+                    {item.icon && (
+                      <item.icon className="w-5 h-5 text-electric-purple" />
+                    )}
+                    <span className="font-medium">{item.label}</span>
+                  </a>
+                )
+              )} */}
+
+              {menuItems.map((item) =>
+                item.dropdown ? (
+                  <div key={item.label} className="flex flex-col">
+                    <button
+                      onClick={() =>
+                        setOpenDropdown(
+                          openDropdown === item.label ? null : item.label
+                        )
+                      }
+                      className="flex items-center justify-between space-x-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <div className="flex items-center space-x-3">
+                        {item.icon && (
+                          <item.icon className="w-5 h-5 text-electric-purple" />
+                        )}
+                        <span className="font-medium">{item.label}</span>
+                      </div>
+                    </button>
+                    {openDropdown === item.label && (
+                      <div className="ml-6 flex flex-col space-y-1">
+                        {item.dropdown.map((subItem) =>
+                          subItem.onClick ? (
+                            <button
+                              key={subItem.label}
+                              onClick={() => {
+                                subItem.onClick();
+                                setIsMenuOpen(false);
+                                setOpenDropdown(null);
+                              }}
+                              className="flex items-center space-x-2 px-2 py-2 text-left hover:bg-muted text-sm rounded-md"
+                            >
+                              <subItem.icon className="w-4 h-4 text-electric-purple" />
+                              <span>{subItem.label}</span>
+                            </button>
+                          ) : (
+                            <a
+                              key={subItem.label}
+                              href={subItem.href}
+                              className="flex items-center space-x-2 px-2 py-2 hover:bg-muted text-sm rounded-md"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              <subItem.icon className="w-4 h-4 text-electric-purple" />
+                              <span>{subItem.label}</span>
+                            </a>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ) : item.onClick ? (
+                  <button
+                    key={item.label}
+                    onClick={() => {
+                      item.onClick();
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                  >
+                    {item.icon && (
+                      <item.icon className="w-5 h-5 text-electric-purple" />
+                    )}
+                    <span className="font-medium">{item.label}</span>
+                  </button>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {item.icon && (
                       <item.icon className="w-5 h-5 text-electric-purple" />

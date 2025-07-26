@@ -11,10 +11,42 @@ import {
   GraduationCap,
   Shield,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const navigate = useNavigate();
   const words = ["Future", "Smart", "Intelligent", "Revolutionary"];
+
+  const [typedText, setTypedText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    const typingSpeed = isDeleting ? 50 : 120;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setTypedText(currentWord.slice(0, charIndex + 1));
+        setCharIndex(charIndex + 1);
+
+        if (charIndex + 1 === currentWord.length) {
+          setTimeout(() => setIsDeleting(true), 1000); // pause before deleting
+        }
+      } else {
+        setTypedText(currentWord.slice(0, charIndex - 1));
+        setCharIndex(charIndex - 1);
+
+        if (charIndex - 1 === 0) {
+          setIsDeleting(false);
+          setWordIndex((wordIndex + 1) % words.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, wordIndex, words]);
 
   const features = [
     { icon: Brain, label: "AI-Powered Analytics" },
@@ -22,13 +54,6 @@ const Hero = () => {
     { icon: Users, label: "Multi-Stakeholder" },
     { icon: Shield, label: "Secure & Reliable" },
   ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % words.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section
@@ -64,40 +89,43 @@ const Hero = () => {
           style={{ animationDelay: "0.2s" }}
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-            <span className="text-foreground">The </span>
+            <span className="text-foreground hover-colorchange">The </span>
             <span className="relative">
               <span className="bg-gradient-primary bg-clip-text text-transparent animate-pulse-glow">
-                {words[currentWordIndex]}
+                {typedText}
               </span>
             </span>
             <br />
-            <span className="text-foreground">of </span>
-            <span className="text-electric-purple">Education</span>
+            <span className="text-electric-purple hover-colorchange">
+              AI Education
+            </span>
             <br />
-            <span className="text-foreground">is </span>
+            <span className="text-electric-purple hover-colorchange">
+              Powerd by{" "}
+            </span>
             <span className="bg-gradient-accent bg-clip-text text-transparent">
-              AI-Powered
+              SDS
             </span>
           </h1>
         </div>
 
         {/* Subtitle */}
         <p
-          className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed animate-slide-up"
+          className="text-xl md:text-2xl text-foreground max-w-4xl mx-auto mb-12 leading-relaxed animate-slide-up "
           style={{ animationDelay: "0.4s" }}
         >
           Experience the next generation of Learning Management System with
-          <span className="text-electric-purple font-semibold">
+          <span className="text-foreground font-semibold">
             {" "}
             AI-driven automation
           </span>
           ,
-          <span className="text-neon-blue font-semibold">
+          <span className="text-foreground font-semibold">
             {" "}
             personalized dashboards
           </span>
           , and
-          <span className="text-neon-pink font-semibold">
+          <span className="text-foreground font-semibold">
             {" "}
             intelligent insights
           </span>{" "}
@@ -128,7 +156,7 @@ const Hero = () => {
           <Button
             size="lg"
             className="btn-futuristic text-lg px-8 py-4"
-            onClick={() => (window.location.href = "/dashboard")}
+            onClick={() => navigate("/dashboard")}
           >
             <span className="flex items-center">
               Explore Dashboard
@@ -139,10 +167,10 @@ const Hero = () => {
             size="lg"
             variant="outline"
             className="neon-border text-lg px-8 py-4 hover-lift"
-            onClick={() => (window.location.href = "/dashboard")}
+            onClick={() => navigate("/dashboard")}
           >
-            Get Started
-            <TrendingUp className="w-5 h-5 ml-2" />
+            Video Guide
+            <Zap className="w-5 h-5 ml-2" />
           </Button>
         </div>
 
