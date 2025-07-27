@@ -104,7 +104,7 @@ const Hero = () => {
               Powerd by{" "}
             </span>
             <span className="bg-gradient-accent bg-clip-text text-transparent">
-              SDS
+              Seena
             </span>
           </h1>
         </div>
