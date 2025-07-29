@@ -16,6 +16,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useNavigate, useLocation } from "react-router-dom";
 import DropdownMenu from "@/components/ui/Dropdown";
+import { Moon, Sun } from "lucide-react";
+import { Toggle } from "./ui/toggle";
+import { useTheme } from "@/context/ThemeProvider";
+
 // import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 
 const Navigation = () => {
@@ -23,6 +27,7 @@ const Navigation = () => {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [hovered, setHovered] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const { theme, toggleTheme } = useTheme();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -182,15 +187,27 @@ const Navigation = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="outline" size="sm" className="neon-border">
-              <User className="w-4 h-4 mr-2" />
-              Login
-            </Button>
-            <Button className="btn-futuristic">
-              <span>Get Started</span>
-            </Button>
-          </div>
+         {/* Action Buttons */}
+<div className="hidden lg:flex items-center space-x-4">
+  <Toggle
+    variant="outline"
+    size="sm"
+    pressed={theme === "dark"}
+    onPressedChange={toggleTheme}
+    aria-label="Toggle theme"
+  >
+    {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+  </Toggle>
+  
+  <Button variant="outline" size="sm" className="neon-border">
+    <User className="w-4 h-4 mr-2" />
+    Login
+  </Button>
+  <Button className="btn-futuristic">
+    <span>Get Started</span>
+  </Button>
+</div>
+
 
           {/* Mobile Menu Button */}
           <button

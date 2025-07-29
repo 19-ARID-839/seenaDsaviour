@@ -3,9 +3,11 @@ import DashboardOverview from "@/components/DashboardOverview";
 
 const Dashboard = () => {
   return (
-    <DashboardLayout>
-      <DashboardOverview />
-    </DashboardLayout>
+    <div className="h-screen w-full flex overflow-auto">
+      <DashboardLayout>
+        <DashboardOverview />
+      </DashboardLayout>
+    </div>
   );
 };
 
