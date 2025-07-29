@@ -7,24 +7,33 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-
+import { ThemeProvider } from "./context/ThemeProvider";
+import PublicRoutes from "./routes/PublicRoutes";
+import InternalRoutes from "./routes/InternalRoutes";
+import InternalModuleLayout from "./pages/InternalModuleLayout";
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <div className="bg-background text-foreground min-h-screen transition-colors">
+          <BrowserRouter>
+            <Routes>
+              {/* <Route path="/" element={<Index />} />
+              <Route path="/dashboard" element={<Dashboard />} /> */}
+              {PublicRoutes}
+              {InternalRoutes}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
+
 
 export default App;
