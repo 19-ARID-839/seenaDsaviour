@@ -51,7 +51,7 @@ const AttendanceHeaderSection = () => {
       {/* Filters Section */}
       <div className="flex flex-col md:flex-row flex-wrap justify-between gap-4 items-start md:items-center">
         {/* Status Filter Buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {[
             { label: "Short", color: "bg-red-500" },
             { label: "Regular", color: "bg-green-500" },
