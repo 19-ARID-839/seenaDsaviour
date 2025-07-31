@@ -15,38 +15,37 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-
 const sliderData = [
   {
-    image: "/src/Assets/slider/moral.jpg",
+    image: "/Assets/slider/moral.jpg",
     title: "Moral Values",
     description:
       "Empowering future leaders through integrity, empathy, and responsibility.",
   },
   {
-    image: "/src/Assets/slider/iq.jpg",
+    image: "/Assets/slider/iq.jpg",
     title: "Intelligence Quotient",
     description: "Smart minds. Strong morals. A better tomorrow.",
   },
   {
-    image: "/src/Assets/slider/social.jpg",
+    image: "/Assets/slider/social.jpg",
     title: "Social Impact",
     description:
       "Fostering moral values for a stronger, more compassionate society.",
   },
   {
-    image: "/src/Assets/slider/vision.jpg",
+    image: "/Assets/slider/vision.jpg",
     title: "Vision",
     description:
       "A vision rooted in values shaping minds, uplifting communities.",
   },
   {
-    image: "/src/Assets/slider/health.jpg",
+    image: "/Assets/slider/health.jpg",
     title: "Health",
     description: "A healthy mind with strong moral heart, a better society.",
   },
   {
-    image: "/src/Assets/slider/tech.jpg",
+    image: "/Assets/slider/tech.jpg",
     title: "Technology",
     description: "Smart technology. Strong morals. Sustainable progress.",
   },
@@ -121,24 +120,11 @@ const DashboardOverview = () => {
     },
   ];
 
-  // const displayedImages = [
-  //   images[(current - 1 + images.length) % images.length],
-  //   images[current],
-  //   images[(current + 1) % images.length],
-  // ];
-
   const displayedImages = [
     sliderData[(current - 1 + sliderData.length) % sliderData.length],
     sliderData[current],
     sliderData[(current + 1) % sliderData.length],
   ];
-
-  //   Moral: Empowering future leaders through integrity, empathy, and responsibility.
-  // Social: Fostering moral values for a stronger, more compassionate society
-  // Vision: A vision rooted in values shaping minds, uplifting communities
-  // IQ: Smart minds. Strong morals. A better tomorrow.
-  // Health: A healthy mind with strong moral heart, a better society.
-  // Tech: Smart technology. Strong morals. Sustainable progress.
 
   return (
     <div className="space-y-6">
