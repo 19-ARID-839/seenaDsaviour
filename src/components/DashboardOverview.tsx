@@ -240,10 +240,20 @@ const DashboardOverview = () => {
 
               {/* Controls */}
               <div className="flex gap-4 mt-4">
-                <Button size="sm" variant="outline" onClick={handlePrev}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="hover:bg-blue-600"
+                  onClick={handlePrev}
+                >
                   Prev
                 </Button>
-                <Button size="sm" variant="outline" onClick={handleNext}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="hover:bg-blue-600"
+                  onClick={handleNext}
+                >
                   Next
                 </Button>
               </div>
