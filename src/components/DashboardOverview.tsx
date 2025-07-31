@@ -355,8 +355,8 @@ const DashboardOverview = () => {
         </div>
 
         {/* Right: */}
-        <div className="2-full md:w-3/4 rounded-lg border p-5 flex justify-center items-center">
-          <div className="w-full max-w-[360px] mx-auto text-center">
+        <div className="w-full md:w-3/4 rounded-lg border p-5 flex justify-center items-center">
+          <div className="w-full max-w-[360px]  mx-auto text-center">
             <h1>Second Section</h1>
           </div>
         </div>
