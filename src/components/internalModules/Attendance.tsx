@@ -214,7 +214,7 @@ const totalPages = Math.ceil(students.length / itemsPerPage);
         <AttendanceHeaderSection />
       </Card>
 
-      <Card className="shadow-md h-80 overflow-auto">
+      <Card className="shadow-md h-full">
         <CardContent className="p-6 space-y-4">
           <AttendanceTable
             data={paginatedData}

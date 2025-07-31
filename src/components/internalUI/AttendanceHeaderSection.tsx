@@ -49,7 +49,7 @@ const AttendanceHeaderSection = () => {
       </div>
 
       {/* Filters Section */}
-      <div className="flex flex-col md:flex-row justify-between gap-4 items-start md:items-center">
+      <div className="flex flex-col md:flex-row flex-wrap justify-between gap-4 items-start md:items-center">
         {/* Status Filter Buttons */}
         <div className="flex gap-2">
           {[
