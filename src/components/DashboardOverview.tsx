@@ -15,11 +15,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-const images = [
-  "/src/Assets/backend.png",
-  "/src/Assets/backend1.png",
-  "/src/Assets/front-end.png",
-];
 
 const sliderData = [
   {
@@ -61,11 +56,11 @@ const DashboardOverview = () => {
   const [current, setCurrent] = useState(1); // center image index
 
   const handleNext = () => {
-    setCurrent((prev) => (prev + 1) % images.length);
+    setCurrent((prev) => (prev + 1) % sliderData.length);
   };
 
   const handlePrev = () => {
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    setCurrent((prev) => (prev - 1 + sliderData.length) % sliderData.length);
   };
   const overviewCards = [
     {
