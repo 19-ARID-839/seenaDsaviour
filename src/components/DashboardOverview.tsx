@@ -2,6 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
+import { Calendar } from "./ui/calendar";
+import {
   Users,
   BookOpen,
   GraduationCap,
@@ -14,7 +22,14 @@ import {
   Activity,
 } from "lucide-react";
 import { useState } from "react";
+import { isSameDay } from "date-fns";
 
+const specialDays: { date: Date; label: string }[] = [
+  { date: new Date(2025, 7, 14), label: "Independence Day 🇵🇰" },
+  { date: new Date(2025, 8, 6), label: "Defence Day" },
+  { date: new Date(2025, 11, 25), label: "Quaid-e-Azam Day" },
+  // Add more as needed
+];
 
 const sliderData = [
   {
@@ -121,11 +136,23 @@ const DashboardOverview = () => {
     },
   ];
 
-  // const displayedImages = [
-  //   images[(current - 1 + images.length) % images.length],
-  //   images[current],
-  //   images[(current + 1) % images.length],
-  // ];
+  const performanceData = [
+    { subject: "Math", score: 78 },
+    { subject: "English", score: 85 },
+    { subject: "Physics", score: 65 },
+    { subject: "Computer", score: 92 },
+    { subject: "Urdu", score: 23 },
+    // { subject: "chemistry", score: 72 },
+    // { subject: "Pak Studies", score: 99 },
+    // { subject: "Islamiat", score: 43 },
+  ];
+
+  const config = {
+    score: {
+      label: "Score",
+      color: "#4f46e5", // Primary color
+    },
+  } satisfies ChartConfig;
 
   const displayedImages = [
     sliderData[(current - 1 + sliderData.length) % sliderData.length],
@@ -133,22 +160,19 @@ const DashboardOverview = () => {
     sliderData[(current + 1) % sliderData.length],
   ];
 
-  //   Moral: Empowering future leaders through integrity, empathy, and responsibility.
-  // Social: Fostering moral values for a stronger, more compassionate society
-  // Vision: A vision rooted in values shaping minds, uplifting communities
-  // IQ: Smart minds. Strong morals. A better tomorrow.
-  // Health: A healthy mind with strong moral heart, a better society.
-  // Tech: Smart technology. Strong morals. Sustainable progress.
+  const specialDayMap = new Map(
+    specialDays.map((day) => [day.date.toDateString(), day.label])
+  );
 
   return (
     <div className="space-y-6">
       <div className="">
         {/* Stats Cards */}
-        <div className="flex flex-row w-full gap-4 ">
-          <div className="flex flex-row flex-wrap justify-evenly content-center w-2/5 gap-2 rounded-xl border shadow-lg">
+        <div className="flex flex-col md:flex-row w-full gap-4 ">
+          <div className="flex flex-row flex-wrap justify-evenly content-center w-full md:w-2/5 gap-2 rounded-xl border shadow-lg p-2">
             {overviewCards.map((card, index) => (
               <div
-                className="w-[220px] h-[120px] rounded-lg border"
+                className="w-full sm:w-[220px] h-auto rounded-lg border"
                 key={index}
               >
                 <CardContent className="p-3">
@@ -166,7 +190,7 @@ const DashboardOverview = () => {
               </div>
             ))}
           </div>
-          <div className="w-3/5">
+          <div className="w-full md:w-3/5">
             <div className="relative h-full rounded-xl border shadow-lg p-4 flex flex-col items-center justify-between">
               {/* Image slider */}
               <div className="relative w-full h-[280px] flex items-center justify-center overflow-hidden">
@@ -174,35 +198,38 @@ const DashboardOverview = () => {
                   <div
                     key={i}
                     className={`
-                          absolute text-center rounded-xl border p-5 transition-all duration-2000 ease-in-out
-                          ${
-                            i === 0
-                              ? "left-[-40px] w-[200px] h-[200px] opacity-50 scale-[0.9] blur-[1px] z-10"
-                              : ""
-                          }
-                          ${
-                            i === 1
-                              ? "relative z-20 w-[350px] h-[240px] scale-100 opacity-100 shadow-xl"
-                              : ""
-                          }
-                          ${
-                            i === 2
-                              ? "right-[-40px] w-[200px] h-[200px] opacity-50 scale-[0.9] blur-[1px] z-10"
-                              : ""
-                          }
-                        `}
+    absolute text-center rounded-2xl border shadow-md p-4 transition-all duration-700 ease-in-out bg-background
+    ${
+      i === 0
+        ? "left-[-50px] w-[180px] h-[220px] opacity-40 scale-[0.9] blur-sm z-10"
+        : ""
+    }
+    ${
+      i === 1
+        ? "relative z-30 w-[360px] h-[280px] scale-100 opacity-100 shadow-xl"
+        : ""
+    }
+    ${
+      i === 2
+        ? "right-[-50px] w-[180px] h-[220px] opacity-40 scale-[0.9] blur-sm z-10"
+        : ""
+    }
+  `}
                   >
-                    <img
-                      src={slide.image}
-                      alt={`Slide ${i}`}
-                      className="object-cover w-full h-[150px] rounded-lg border transition-all duration-2000 ease-in-out"
-                    />
+                    <div className="overflow-hidden rounded-xl">
+                      <img
+                        src={slide.image}
+                        alt={`Slide ${i}`}
+                        className="object-cover w-full h-[160px] rounded-xl border transition-transform duration-500 ease-in-out hover:scale-105"
+                      />
+                    </div>
+
                     {i === 1 && (
-                      <div className="mt-2 px-2">
-                        <h3 className="text-lg font-semibold text-foreground">
+                      <div className="mt-3 px-3">
+                        <h3 className="text-lg font-semibold text-foreground truncate">
                           {slide.title}
                         </h3>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-sm text-muted-foreground line-clamp-2">
                           {slide.description}
                         </p>
                       </div>
@@ -227,12 +254,15 @@ const DashboardOverview = () => {
 
       {/* AI Insights Section */}
       <div className="">
-        <div className="flex flex-row w-full gap-4">
-          <div className=" w-3/5  rounded-lg border p-5">
+        <div className="flex flex-col md:flex-row w-full gap-4">
+          <div className=" w-full md:w-3/5  rounded-lg border p-5">
             <h2 className="text-2xl font-bold mb-4">AI-Powered Insights</h2>
             <div className="flex flex-row flex-wrap justify-evenly gap-4">
               {aiInsights.map((item, index) => (
-                <div className="w-[320px] h-auto rounded-lg border" key={index}>
+                <div
+                  className="w-full sm:w-[320px] h-auto rounded-lg border"
+                  key={index}
+                >
                   <CardContent className="p-3 flex items-start gap-2">
                     <div
                       className={`w-7 h-7 rounded-lg flex items-center justify-center text-white ${item.color}`}
@@ -269,8 +299,65 @@ const DashboardOverview = () => {
               ))}
             </div>
           </div>
-          <div className="w-2/5">
-            <h1>One</h1>
+          {/* Chart Section */}
+          <div className="w-full md:w-2/5 rounded-lg border  flex justify-center items-center">
+            <div className="w-full w-100 pr-10 ">
+              <h2 className="text-2xl font-bold mb-4 pl-7">Performance</h2>
+              <ChartContainer config={config}>
+                <BarChart data={performanceData} width={500} height={300}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="subject" />
+                  <YAxis />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar
+                    dataKey="score"
+                    fill="var(--color-score)"
+                    radius={[6, 6, 0, 0]}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Third Section */}
+      <div className="flex flex-col md:flex-row w-full self-center gap-4 mt-6">
+        {/* Left: Calender*/}
+        <div className="w-full md:w-1/4 rounded-lg border p-5">
+          <h2 className="text-2xl font-bold mb-4">Calender</h2>
+          <Calendar
+            className="w-full"
+            modifiers={{
+              special: specialDays.map((d) => d.date),
+            }}
+            modifiersClassNames={{
+              special:
+                "relative group bg-green-200 text-green-900 rounded-full",
+            }}
+            components={{
+              DayContent: (day) => {
+                const key = day.date.toDateString();
+                const label = specialDayMap.get(key);
+                return (
+                  <div className="relative group flex items-center justify-center h-10 w-10">
+                    <span>{day.date.getDate()}</span>
+                    {label && (
+                      <div className="absolute bottom-full mb-1 w-max bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50">
+                        {label}
+                      </div>
+                    )}
+                  </div>
+                );
+              },
+            }}
+          />
+        </div>
+
+        {/* Right: */}
+        <div className="2-full md:w-3/4 rounded-lg border p-5 flex justify-center items-center">
+          <div className="w-full max-w-[360px] mx-auto text-center">
+            <h1>Second Section</h1>
           </div>
         </div>
       </div>

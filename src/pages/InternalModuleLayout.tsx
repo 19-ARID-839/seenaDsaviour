@@ -1,12 +1,18 @@
 import Header from "@/components/internalUI/Header";
+import MobileDrawer from "@/components/internalUI/MobileDrawer";
 import Sidebar from "@/components/internalUI/Sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
 const InternalModuleLayout = () => {
+  const isMobile = useIsMobile();
+
+
   return (
     <div className="h-screen w-auto flex overflow-hidden">
-      <Sidebar />
+      {/* <Sidebar /> */}
+      {isMobile ? <MobileDrawer /> : <Sidebar />}
       <div className="flex-1 flex flex-col h-full">
         {/* Shared Header */}
         <Header />
