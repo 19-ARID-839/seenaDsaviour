@@ -23,29 +23,29 @@ const sliderData = [
       "Empowering future leaders through integrity, empathy, and responsibility.",
   },
   {
-    image: "/src/Assets/slider/iq.jpg",
+    image: "/slider/iq.jpg",
     title: "Intelligence Quotient",
     description: "Smart minds. Strong morals. A better tomorrow.",
   },
   {
-    image: "/src/Assets/slider/social.jpg",
+    image: "/slider/social.jpg",
     title: "Social Impact",
     description:
       "Fostering moral values for a stronger, more compassionate society.",
   },
   {
-    image: "/src/Assets/slider/vision.jpg",
+    image: "/slider/vision.jpg",
     title: "Vision",
     description:
       "A vision rooted in values shaping minds, uplifting communities.",
   },
   {
-    image: "/src/Assets/slider/health.jpg",
+    image: "/slider/health.jpg",
     title: "Health",
     description: "A healthy mind with strong moral heart, a better society.",
   },
   {
-    image: "/src/Assets/slider/tech.jpg",
+    image: "/slider/tech.jpg",
     title: "Technology",
     description: "Smart technology. Strong morals. Sustainable progress.",
   },
