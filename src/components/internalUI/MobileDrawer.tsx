@@ -20,12 +20,13 @@ import {
 import { useState } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
+import { url } from "inspector";
 
 const menuItems = [
   { title: "Time Table", icon: Calendar, url: "/dashboard/time-table" },
   { title: "Attendance", icon: Pen, url: "/dashboard/attendance" },
   { title: "Exam Portal", icon: BookOpen },
-  { title: "Fee managment", icon: Wallet },
+  { title: "Fee managment", icon: Wallet, url: '/dashboard/fee-manager' },
   { title: "Leave Approval", icon: School },
   { title: "News Manager", icon: IdCard },
   { title: "Task Manager", icon: LayoutList, url: "/dashboard/task-manager" },
