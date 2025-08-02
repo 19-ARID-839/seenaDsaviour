@@ -7,8 +7,24 @@ import { useState } from "react";
 import AttendanceTable from "@/components/internalUI/AttendanceTable";
 import AttendanceToggle from "../internalUI/AttendanceToggle";
 import AttendanceHeaderSection from "../internalUI/AttendanceHeaderSection";
-import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationNext } from "../ui/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationLink,
+  PaginationNext,
+} from "../ui/pagination";
 
+interface Student {
+  id: string;
+  name: string;
+  rollNumber: string;
+  gender: string;
+  email: string;
+  date: string;
+  isPresent: boolean;
+}
 const Attendance = () => {
   const [search, setSearch] = useState("");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
@@ -195,24 +211,23 @@ const Attendance = () => {
     },
   ]);
   const [currentPage, setCurrentPage] = React.useState(1);
-const itemsPerPage = 10;
+  const itemsPerPage = 10;
 
-const paginatedData = students.slice(
-  (currentPage - 1) * itemsPerPage,
-  currentPage * itemsPerPage
-);
+  const paginatedData = students.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-const totalPages = Math.ceil(students.length / itemsPerPage);
-
+  const totalPages = Math.ceil(students.length / itemsPerPage);
 
   return (
     <div className="space-y-8">
-      <h2 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent text-4xl md:text-6xl text-center">
-        Attendance Management
+      <h2 className="bg-gradient-primary bg-clip-text text-transparent hover-colorchange mobileSm:text-3xl lg:text:4x1 text-center">
+        Attendance Portal
       </h2>
-      <Card className="shadow-md p-5">
+      {/* <Card className="shadow-md p-5"> */}
         <AttendanceHeaderSection />
-      </Card>
+      {/* </Card> */}
 
       <Card className="shadow-md h-full">
         <CardContent className="p-6 space-y-4">
@@ -254,34 +269,31 @@ const totalPages = Math.ceil(students.length / itemsPerPage);
         </CardContent>
       </Card>
       <Pagination className="mt-4">
-  <PaginationContent>
-    <PaginationItem>
-      <PaginationPrevious
-        onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-      />
-    </PaginationItem>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+            />
+          </PaginationItem>
 
-    {Array.from({ length: totalPages }).map((_, idx) => (
-      <PaginationItem key={idx}>
-        <PaginationLink
-          isActive={currentPage === idx + 1}
-          onClick={() => setCurrentPage(idx + 1)}
-        >
-          {idx + 1}
-        </PaginationLink>
-      </PaginationItem>
-    ))}
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <PaginationItem key={idx}>
+              <PaginationLink
+                isActive={currentPage === idx + 1}
+                onClick={() => setCurrentPage(idx + 1)}
+              >
+                {idx + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
 
-    <PaginationItem>
-      <PaginationNext
-        onClick={() =>
-          setCurrentPage((p) => Math.min(p + 1, totalPages))
-        }
-      />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>
-
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };

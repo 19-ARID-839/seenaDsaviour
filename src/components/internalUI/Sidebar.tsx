@@ -36,7 +36,7 @@ import { useNavigate } from "react-router-dom";
 const menuItems = [
   { title: "Time Table", icon: Calendar, url: "/dashboard/time-table" },
   { title: "Attendance", icon: Pen, url: "/dashboard/attendance" },
-  { title: "Exam Portal", icon: BookOpen },
+  { title: "Exam Portal", icon: BookOpen, url: "/dashboard/exam-portal" },
   { title: "Fee managment", icon: Wallet, url: '/dashboard/fee-manager' },
   { title: "Leave Approval", icon: School },
   { title: "News Manager", icon: IdCard },
